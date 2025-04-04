@@ -28,9 +28,6 @@ public class ConfigFilter {
                                                 .disable())
                                 .authorizeHttpRequests(authRequest -> authRequest
                                                 .requestMatchers("/auth/**").permitAll()
-                                                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                                                .requestMatchers("/public-endpoint").permitAll()
-
                                                 // autenticación
                                                 .anyRequest().authenticated())
                                 .sessionManagement(sessionManager -> sessionManager
@@ -38,8 +35,8 @@ public class ConfigFilter {
                                 .authenticationProvider(authenticationProvider)
                                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                                 .oauth2Login(oauth2 -> oauth2
-                                                .defaultSuccessUrl("/dashboard", true)
-                                                .failureUrl("/login?error=true"))
+                                                .defaultSuccessUrl("/auth", true)
+                                                .failureUrl("/auth?error=true"))
                                 .build();
 
         }
